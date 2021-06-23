@@ -1,6 +1,12 @@
 # ansible-ise
 ---------------------------
-get_ise_endpoint_details.yml book : Gets an existing Endpoint group assignment name from ISE
+Requirements:
+---------------------------
+-ISE ERS Enabled
+-Correct/Updated group id strings from respective ISE node/cluster
+-Proper variable usage/input
+
+get_ise_endpoint_details.yml : Gets an existing Endpoint group assignment name from ISE
 ---------------------------
 Plays breakdown:
 -Get existing MAC endpoint ID string from ISE db
@@ -13,7 +19,7 @@ Plays breakdown:
 -Extract the group id string from nested list & store as variable
 -Print returned group name to screen
 
-ise_endpoint_group_update.yml book : Updates an existing Endpoint group assignment based on user variables
+ise_endpoint_group_update.yml : Updates an existing Endpoint group assignment based on user variables
 ---------------------------
 Plays breakdown:
 -Create variable based on user input conditional
@@ -31,8 +37,3 @@ Plays breakdown:
 -Extract group name from nested list & store as variable
 -Print updated Endpoint group name from ISE
 
-Requirements:
----------------------------
--ISE ERS Enabled
--Correct/Updated group id strings from respective ISE node/cluster
--Proper variable usage/input
