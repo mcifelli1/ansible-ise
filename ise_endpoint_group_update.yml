@@ -89,7 +89,7 @@
     set_fact:
      group_id_string: "{{ id_details[0] }}"
 
-  - name: Print ISE Endpoint ID
+  - name: Print ISE Endpoint Group ID
     debug: 
      msg: "{{ group_id_string }}"
 
