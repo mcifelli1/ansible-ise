@@ -50,7 +50,7 @@
       validate_certs: no
     register: endpoint_details
 
-  - name: Print ISE Endpoint ID
+  - name: Print ISE Endpoint Details
     debug: 
      msg: "{{ endpoint_details }}"
 
