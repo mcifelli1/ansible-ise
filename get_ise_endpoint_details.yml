@@ -1,0 +1,101 @@
+---
+- name: ISE
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  vars:
+    ise_user: xxxx
+    ise_pass: xxxx
+
+  tasks:
+  - name: Get Existing MAC Endpoint ID string
+    uri:
+      url: https://xxxx:9060/ers/config/endpoint?filter=mac.EQ.{{ mac_addr }}
+      user: "{{ ise_user }}"
+      password: "{{ ise_pass }}"
+      headers:
+        Accept: application/json
+        content-type: application/json
+        ers-media-type: identity.endpoint.1.2
+      status_code: 200
+      method: GET
+      validate_certs: no
+    register: endpoint_id
+
+  - name: Print ISE Endpoint ID
+    debug: 
+     msg: "{{ endpoint_id }}"
+   
+  - name: Get ISE ID String
+    set_fact:
+     id: "{{ endpoint_id | json_query(jmesquery) }}"
+    vars:
+      jmesquery: '*.SearchResult.resources[*].id'
+
+  - name: Extract ID from Nested List
+    set_fact:
+     id: "{{ id[0][0] }}"
+
+  - name: Get Endpoint Details
+    uri:
+      url: https://xxxx:9060/ers/config/endpoint/{{ id }}
+      user: "{{ ise_user }}"
+      password: "{{ ise_pass }}"
+      headers:
+        Accept: application/json
+        content-type: application/json
+        ers-media-type: identity.endpoint.1.2
+      status_code: 200
+      method: GET
+      validate_certs: no
+    register: endpoint_details
+
+  - name: Print ISE Endpoint ID
+    debug: 
+     msg: "{{ endpoint_details }}"
+
+  - name: Get ISE Group ID String
+    set_fact:
+     id_details: "{{ endpoint_details | json_query(jmesquery) }}"
+    vars:
+      jmesquery: '*.ERSEndPoint.groupId'
+
+  - name: Extract Group ID from Nested List
+    set_fact:
+     group_id: "{{ id_details[0] }}"
+
+  - name: Print ISE Endpoint ID
+    debug: 
+     msg: "{{ group_id }}"
+
+  - name: Get Endpoint Group Assignment
+    uri:
+      url: https://xx.xx.xx.xx:9060/ers/config/endpointgroup/{{ group_id }}
+      user: "{{ ise_user }}"
+      password: "{{ ise_pass }}"
+      headers:
+        Accept: application/json
+        content-type: application/json
+        ers-media-type: identity.endpointgroup.1.1
+      status_code: 200
+      method: GET
+      validate_certs: no
+    register: endpoint_group
+
+  - name: Print returned ISE json data
+    debug:
+     msg: "{{ endpoint_group.json }}"
+
+  - name: Get ISE Group Name from ISE json data
+    set_fact:
+     group_name: "{{ endpoint_group | json_query(jmesquery) }}"
+    vars:
+      jmesquery: '*.EndPointGroup.name'
+
+  - name: Extract Group Name from Nested List
+    set_fact:
+     group_id: "{{ group_name[0] }}"
+
+  - name: Print returned ISE group name
+    debug:
+     msg: 'The Endpoint belongs to the following group in ISE: "{{ group_id }}"'
