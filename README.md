@@ -9,7 +9,7 @@ Requirements:
 
 get_ise_endpoint_details.yml : Gets an existing Endpoint group assignment name from ISE
 ---------------------------
-Plays breakdown:
+Playbook overview:
 -Get existing MAC endpoint ID string from ISE db
 -Print returned data from ISE
 -Extract endpoint id string using json_query & store as variable
@@ -22,7 +22,7 @@ Plays breakdown:
 
 ise_endpoint_group_update.yml : Updates an existing Endpoint group assignment based on user variables
 ---------------------------
-Plays breakdown:
+Playbook overview:
 -Create variable based on user input conditional
 -Get existing MAC endpoint ID string from ISE db
 -Print returned data from ISE
