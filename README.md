@@ -5,6 +5,7 @@ Requirements:
 -ISE ERS Enabled
 -Correct/Updated group id strings from respective ISE node/cluster
 -Proper variable usage/input
+-Updated ISE ERS username/pass & urls
 
 get_ise_endpoint_details.yml : Gets an existing Endpoint group assignment name from ISE
 ---------------------------
