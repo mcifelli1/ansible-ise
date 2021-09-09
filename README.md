@@ -38,3 +38,8 @@ Playbook overview:
 -Extract group name from nested list & store as variable
 -Print updated Endpoint group name from ISE
 
+ise_client_det_xml_mod.yml  : Gets an existing Endpoint detail from ISE using custom ansible module
+-------------------------
+Playbook overview: 
+-Invoke custom Ansible uploaded to local dir
+-Pass user variable (mac address) used to obtain client detail from ISE via session API
