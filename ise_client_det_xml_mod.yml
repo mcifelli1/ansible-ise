@@ -1,0 +1,9 @@
+---
+- name: ISE Module
+  hosts: localhost
+  gather_facts: False
+  tasks:
+    - name: Getting Client Detail from ISE
+      ans_mod_ise_client_detail:
+        hw_addr: "{{ hw_addr }}"
+        
